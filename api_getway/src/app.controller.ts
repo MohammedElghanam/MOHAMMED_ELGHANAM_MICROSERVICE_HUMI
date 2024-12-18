@@ -15,25 +15,24 @@ export class AppController {
   }
 
   
-  @Get('service-a')
-  callServiceA() {
-    // const result = this.serviceAClient.send({ cmd: 'get_data' }, {}).toPromise();  
-    // log('hello');  
-    // return result;
-  }
+  // @Get('service-a')
+  // callServiceA() {
+  //   // const result = this.serviceAClient.send({ cmd: 'get_data' }, {}).toPromise();  
+  //   // log('hello');  
+  //   // return result;
+  // }
 
   @Get('service')
   callService() {
     const result = this.appSrevice.create(); 
-    log('hello');  
-     
+    log('hello');   
     return result;
   }
 
   
-  @Get('service-b')
-  async callServiceB(@Query('data') data: string) {
-    // const result = await this.serviceBClient.send({ cmd: 'process_task' }, { data }).toPromise();
-    // return result;
-  }
+  // @Get('service-b')
+  // async callServiceB(@Query('data') data: string) {
+  //   // const result = await this.serviceBClient.send({ cmd: 'process_task' }, { data }).toPromise();
+  //   // return result;
+  // }
 }

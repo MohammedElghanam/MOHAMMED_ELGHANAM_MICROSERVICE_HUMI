@@ -15,6 +15,7 @@ import { ClientProxyFactory, Transport } from '@nestjs/microservices';
         });
       },
     },
+    
     {
       provide: 'SERVICE_2',
       useFactory: () => {
