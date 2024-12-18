@@ -1,9 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class AuthService {
+
+  constructor(
+    @Inject('SERVICE_1') private readonly serviceAClient: ClientProxy,
+  ) {}
+
   create(createAuthDto: CreateAuthDto) {
     return 'This action adds a new auth';
   }
@@ -22,5 +28,10 @@ export class AuthService {
 
   remove(id: number) {
     return `This action removes a #${id} auth`;
+  }
+
+  async login(body: any) {
+    const result = await this.serviceAClient.send({ cmd: 'login' }, body).toPromise();
+    return result;
   }
 }

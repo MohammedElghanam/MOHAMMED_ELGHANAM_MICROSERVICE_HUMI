@@ -1,34 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { LoginDto } from './dto/login.dto';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
 @Injectable()
 export class AppService {
-  
-    async login(loginDto: LoginDto) {
-        const { email, password } = loginDto;
+  async login(loginDto: LoginDto): Promise<string> {
+    const { username, password } = loginDto;
 
-        const params = new URLSearchParams();
-        params.append('grant_type', 'password');
-        params.append('client_id', keycloakConfig.clientId);
-        params.append('client_secret', keycloakConfig.secret);
-        params.append('username', username);
-        params.append('password', password);
+    const url = `${process.env.KEYCLOAK_HOST}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/token`;
+    const data = new URLSearchParams({
+      grant_type: process.env.GRANT,
+      client_id: process.env.KEYCLOAK_CLIENT_ID,
+      client_secret: process.env.KEYCLOAK_CLIENT_SECRET,
+      username: username,
+      password: password,
+    });
 
-        try {
-            const response = await axios.post(
-                `${keycloakConfig.authServerUrl}/realms/${keycloakConfig.realm}/protocol/openid-connect/token`,
-                params,
-                {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                },
-            );
-
-            return response.data;
-        } catch (error) {
-            throw new Error('Login failed: ' + error.response.data.error_description);
-        }
+    try {
+      const response = await axios.post(url, data);
+      return response.data;
+    } catch (error) {
+      console.error('Error response:', error.response.data);
+      throw new Error('Invalid credentials');
     }
-
+  }
 }

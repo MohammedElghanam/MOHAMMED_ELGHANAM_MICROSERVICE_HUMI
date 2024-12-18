@@ -31,4 +31,10 @@ export class AuthController {
   remove(@Param('id') id: string) {
     return this.authService.remove(+id);
   }
+
+  @Post('/login')
+  async login(@Body() body: any) {
+    const result = await this.authService.login(body);
+    return result;
+  }
 }
