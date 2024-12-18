@@ -1,11 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateServiceRhDto } from './dto/create-service_rh.dto';
 import { UpdateServiceRhDto } from './dto/update-service_rh.dto';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class ServiceRhService {
-  create(createServiceRhDto: CreateServiceRhDto) {
-    return 'This action adds a new serviceRh';
+
+  constructor(
+    @Inject('SERVICE_2') private readonly serviceBClient: ClientProxy,
+  ) {}
+
+  async create(createServiceRhDto: CreateServiceRhDto) {
+    const result = await this.serviceBClient.send({cmd: 'creat-employee'}, createServiceRhDto).toPromise();
+    return result
   }
 
   findAll() {
