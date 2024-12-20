@@ -1,16 +1,38 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UnauthorizedException } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { MessagePattern } from '@nestjs/microservices';
+import { KeycloakService } from './Keycloak.service';
 
 @Controller('employee')
 export class EmployeeController {
-  constructor(private readonly employeeService: EmployeeService) {}
+  constructor(
+    private readonly employeeService: EmployeeService,
+    private readonly keycloakService: KeycloakService,
+  ) {}
 
-  @Post()
-  create(@Body() createEmployeeDto: CreateEmployeeDto) {
-    return this.employeeService.create(createEmployeeDto);
+  // @MessagePattern({ cmd:'create-employee' })
+  // create(createEmployeeDto: CreateEmployeeDto) {
+  //   return this.employeeService.create(createEmployeeDto);
+  // }
+
+  @MessagePattern({ cmd: 'create-employee' })
+async create(payload: CreateEmployeeDto) {
+  const { token } = payload;
+
+  const decodedToken = await this.keycloakService.verifyToken(token);
+
+ 
+  if (!this.keycloakService.hasRole(decodedToken, 'employee')) {
+    throw new UnauthorizedException('User does not have the required role.');
   }
+
+ 
+  return this.employeeService.create(payload);
+}
+
+
 
   @Get()
   findAll() {

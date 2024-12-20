@@ -10,24 +10,16 @@ export class ServiceRhService {
     @Inject('SERVICE_2') private readonly serviceBClient: ClientProxy,
   ) {}
 
-  async create(createServiceRhDto: CreateServiceRhDto) {
-    const result = await this.serviceBClient.send({cmd: 'creat-employee'}, createServiceRhDto).toPromise();
+  async create(createServiceRhDto: CreateServiceRhDto, token: string) {
+
+    const paylod = {
+      ...createServiceRhDto,
+      token,
+    };
+
+    const result = await this.serviceBClient.send({cmd: 'create-employee'}, paylod).toPromise();
     return result
   }
 
-  findAll() {
-    return `This action returns all serviceRh`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} serviceRh`;
-  }
-
-  update(id: number, updateServiceRhDto: UpdateServiceRhDto) {
-    return `This action updates a #${id} serviceRh`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} serviceRh`;
-  }
+  
 }

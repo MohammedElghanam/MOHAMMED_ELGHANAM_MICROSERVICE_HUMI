@@ -5,7 +5,11 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 @Injectable()
 export class EmployeeService {
   create(createEmployeeDto: CreateEmployeeDto) {
-    return 'This action adds a new employee';
+    const { name, token } = createEmployeeDto;
+    return {
+      name: name,
+      token: token,
+    };
   }
 
   findAll() {
