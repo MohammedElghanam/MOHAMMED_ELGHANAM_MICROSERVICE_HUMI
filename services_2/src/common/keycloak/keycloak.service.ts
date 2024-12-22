@@ -24,8 +24,16 @@ export class KeycloakService {
     return `-----BEGIN CERTIFICATE-----\n${key}\n-----END CERTIFICATE-----`;
   }
 
-  hasRole(decodedToken: any, requiredRole: string): boolean {
+  hasRole(decodedToken: any, requiredRole: any): boolean {
     const roles = decodedToken.realm_access?.roles || [];
-    return roles.includes(requiredRole);
+    const test = roles.toString().includes(requiredRole.toString());
+
+
+    // console.log('roles:' + roles + typeof(roles));
+    // console.log('requiredRole:' + requiredRole + typeof(requiredRole));
+    // console.log(test);
+    
+    
+    return test ;
   }
 }
