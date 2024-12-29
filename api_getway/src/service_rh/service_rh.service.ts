@@ -30,26 +30,23 @@ export class ServiceRhService {
       token,
     };
 
-    // return data;
     const result = await this.serviceBClient.send({cmd: 'update-employee'}, data).toPromise();
     return result
   }
 
-  async findAll() {
-    const result = await this.serviceBClient.send({cmd: 'find-all'}, {}).toPromise();
+  async findAll(token: string) {
+    const result = await this.serviceBClient.send({cmd: 'find-all-employees'}, { token }).toPromise();
     return result
   }
 
-  // Find an employee by ID
-  async findOne(id: number) {
-    const result = await this.serviceBClient.send({cmd: 'find-one'}, {}).toPromise();
+  async findOne(id: number, token: string) {
+    const result = await this.serviceBClient.send({cmd: 'find-one-employee'}, { token, id}).toPromise();
     return result
   }
 
   // Remove an employee
-  async remove(id: number): Promise<void> {
-    const paylod = 10;
-    const result = await this.serviceBClient.send({cmd: 'create-employee'}, paylod).toPromise();
+  async remove(id: number, token: string) {
+    const result = await this.serviceBClient.send({cmd: 'remove-employee'}, { token, id}).toPromise();
     return result
   }
   

@@ -14,14 +14,16 @@ export class ServiceRhController {
   }
 
   @Get()
-  findAll() {
-    return this.serviceRhService.findAll();
+  findAll(@Request() req) {
+    const token = req['token'];
+    return this.serviceRhService.findAll(token);
   }
 
   // Get employee by ID
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.serviceRhService.findOne(id);
+  findOne(@Param('id') id: number, @Request() req) {
+    const token = req['token'];
+    return this.serviceRhService.findOne(id, token);
   }
 
   // Update employee
@@ -33,7 +35,8 @@ export class ServiceRhController {
 
   // Delete employee
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.serviceRhService.remove(id);
+  remove(@Param('id') id: number, @Request() req) {
+    const token = req['token'];
+    return this.serviceRhService.remove(id, token);
   }
 }

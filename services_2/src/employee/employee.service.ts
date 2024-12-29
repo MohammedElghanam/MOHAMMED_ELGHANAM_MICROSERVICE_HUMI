@@ -28,18 +28,23 @@ export class EmployeeService {
     return this.findOne(id); 
   }
 
-  async findAll(): Promise<Employee[]> {
+  async findAll() {
     return this.employeeRepository.find();
   }
 
-  async findOne(id: number): Promise<Employee> {
+  async findOne(id: number) {
     return this.employeeRepository.findOneBy({ id });
   }
 
 
  
-  async remove(id: number): Promise<void> {
-    await this.employeeRepository.delete(id);
+  async remove(id: number) {
+    const result = await this.employeeRepository.delete(id);
+    if (result) {
+      return { message: 'Employee removed' };
+    }else{
+      return { message: 'Employee not found' };
+    }
   }
 
 }

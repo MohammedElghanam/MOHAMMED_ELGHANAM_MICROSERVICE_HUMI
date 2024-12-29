@@ -26,4 +26,22 @@ export class EmployeeController {
     return this.employeeService.update(data);
   }
 
+  @Roles('employee')
+  @MessagePattern({ cmd: 'find-one-employee' })
+  async findOne(data: { id: number, token: string }) {
+    return this.employeeService.findOne(data.id);
+  }
+
+  @Roles('employee')
+  @MessagePattern({ cmd: 'find-all-employees' })
+  async findAll() {
+    return this.employeeService.findAll();
+  }
+
+  @Roles('employee')
+  @MessagePattern({ cmd: 'remove-employee' })
+  async remove(data:  { id: number, token: string }) {
+    return this.employeeService.remove(data.id);
+  }
+
 }
