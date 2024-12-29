@@ -11,11 +11,11 @@ export class ServiceOffersService {
   ) {}
 
   async create(createServiceOfferDto: CreateServiceOfferDto, token: string) {
-    return {
-      message: 'Service offer created successfully',
-      data: createServiceOfferDto,
-      token: token
-    };
+    // return {
+    //   message: 'Service offer created successfully',
+    //   data: createServiceOfferDto,
+    //   token: token
+    // };
 
     const paylod = {
       ...createServiceOfferDto,

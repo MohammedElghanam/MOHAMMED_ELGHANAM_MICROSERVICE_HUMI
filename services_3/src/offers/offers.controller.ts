@@ -1,15 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { OffersService } from './offers.service';
 import { CreateOfferDto } from './dto/create-offer.dto';
 import { UpdateOfferDto } from './dto/update-offer.dto';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { MessagePattern } from '@nestjs/microservices';
+import { RolesGuard } from 'src/common/guards/roles.guard';
 
+@UseGuards(RolesGuard)
 @Controller('offers')
 export class OffersController {
   constructor(private readonly offersService: OffersService) {}
 
-  @Post()
-  create(@Body() createOfferDto: CreateOfferDto) {
-    return this.offersService.create(createOfferDto);
+  @Roles('rh')
+  @MessagePattern({ cmd: 'create-offre' })
+  create(createOfferDto: CreateOfferDto) {
+    return createOfferDto;
+    // return this.offersService.create(createOfferDto);
   }
 
   @Get()
