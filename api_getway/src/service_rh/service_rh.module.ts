@@ -10,8 +10,8 @@ import { LoggerMiddleware } from 'src/logger/logger.middleware';
   providers: [ServiceRhService],
 })
 export class ServiceRhModule {
-  configure( middleware_api: MiddlewareConsumer) {
-    middleware_api
+  configure( middleware_rh: MiddlewareConsumer) {
+    middleware_rh
       .apply(LoggerMiddleware)
       .forRoutes(ServiceRhController)
   }
