@@ -14,31 +14,31 @@ export class EmployeeController {
     private readonly employeeService: EmployeeService,
   ) {}
 
-  @Roles('employee')
+  @Roles('rh')
   @MessagePattern({ cmd: 'create-employee' })
   async create(payload: CreateEmployeeDto) {
     return this.employeeService.create(payload);
   }
 
-  @Roles('employee')
+  @Roles('rh')
   @MessagePattern({ cmd: 'update-employee' })
   async update(data: UpdateEmployeeDto) {
     return this.employeeService.update(data);
   }
 
-  @Roles('employee')
+  @Roles('rh')
   @MessagePattern({ cmd: 'find-one-employee' })
   async findOne(data: { id: number, token: string }) {
     return this.employeeService.findOne(data.id);
   }
 
-  @Roles('employee')
+  @Roles('rh')
   @MessagePattern({ cmd: 'find-all-employees' })
   async findAll() {
     return this.employeeService.findAll();
   }
 
-  @Roles('employee')
+  @Roles('rh')
   @MessagePattern({ cmd: 'remove-employee' })
   async remove(data:  { id: number, token: string }) {
     return this.employeeService.remove(data.id);
