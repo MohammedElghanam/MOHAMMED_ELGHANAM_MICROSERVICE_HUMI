@@ -28,7 +28,20 @@ import { ClientProxyFactory, Transport } from '@nestjs/microservices';
         });
       },
     },
+
+    {
+      provide: 'SERVICE_3',
+      useFactory: () => {
+        return ClientProxyFactory.create({
+          transport: Transport.TCP,
+          options: {
+            host: 'localhost',
+            port: 3003,
+          },
+        });
+      },
+    },
   ],
-  exports: ['SERVICE_1', 'SERVICE_2'],
+  exports: ['SERVICE_1', 'SERVICE_2', 'SERVICE_3'],
 })
 export class MicroservicesModule {}
