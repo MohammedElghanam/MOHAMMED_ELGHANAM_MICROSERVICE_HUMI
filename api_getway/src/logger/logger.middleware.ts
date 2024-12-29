@@ -21,7 +21,7 @@ export class LoggerMiddleware implements NestMiddleware {
       throw new UnauthorizedException('Token is missing');
     }
 
-    console.log(token);
+    // console.log(token);
     
     req['token'] = token;
 
