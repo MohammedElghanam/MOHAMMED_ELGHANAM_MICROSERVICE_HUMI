@@ -16,11 +16,14 @@ export class RolesGuard implements CanActivate {
     const token = request.token;
     const requiredRoles = this.reflector.get<string[]>('roles', context.getHandler());
 
+    // console.log(token);
+
     if (!token) {
       throw new UnauthorizedException('Token not provided');
     }
 
-    console.log('daz hna;' + requiredRoles + typeof(requiredRoles));
+    
+    // console.log('daz hna;' + requiredRoles + typeof(requiredRoles));
     
     const decodedToken = await this.keycloakService.verifyToken(token);
     

@@ -22,13 +22,15 @@ export class ServiceRhService {
   }
 
   // Update an employee
-  async update(id: number, updateServiceRhDto: UpdateServiceRhDto){
+  async update(id: number, token: string, updateServiceRhDto: UpdateServiceRhDto){
 
     const data = {
       ...updateServiceRhDto,
       id,
+      token,
     };
 
+    // return data;
     const result = await this.serviceBClient.send({cmd: 'update-employee'}, data).toPromise();
     return result
   }

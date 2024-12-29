@@ -26,11 +26,9 @@ export class ServiceRhController {
 
   // Update employee
   @Patch(':id')
-  update(
-    @Param('id') id: number,
-    @Body() employee: UpdateServiceRhDto,
-  ) {
-    return this.serviceRhService.update(id, employee);
+  update( @Param('id') id: number, @Body() employee: UpdateServiceRhDto, @Request() req ) {
+    const token = req['token'];
+    return this.serviceRhService.update(id, token, employee);
   }
 
   // Delete employee

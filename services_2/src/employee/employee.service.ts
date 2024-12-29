@@ -22,11 +22,11 @@ export class EmployeeService {
 
 
   
-  // async update( employee: UpdateEmployeeDto) {
-  //   const { name, email, password, id } = employee;
-  //   await this.employeeRepository.update(id, employee);
-  //   return this.findOne(id); 
-  // }
+  async update(data: UpdateEmployeeDto) {
+    const { name, email, password, id } = data;
+    await this.employeeRepository.update(id, { name, email, password });
+    return this.findOne(id); 
+  }
 
   async findAll(): Promise<Employee[]> {
     return this.employeeRepository.find();

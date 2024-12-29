@@ -23,8 +23,7 @@ export class EmployeeController {
   @Roles('employee')
   @MessagePattern({ cmd: 'update-employee' })
   async update(data: UpdateEmployeeDto) {
-    return data;
-    // return this.employeeService.update(body);
+    return this.employeeService.update(data);
   }
 
 }
