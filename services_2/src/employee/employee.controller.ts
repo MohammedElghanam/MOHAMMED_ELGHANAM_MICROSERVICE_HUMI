@@ -42,6 +42,6 @@ export class EmployeeController {
   @MessagePattern({ cmd: 'remove-employee' })
   async remove(data:  { id: number, token: string }) {
     return this.employeeService.remove(data.id);
-  }
+  } 
 
 }
