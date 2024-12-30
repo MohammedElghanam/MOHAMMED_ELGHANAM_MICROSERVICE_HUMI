@@ -14,13 +14,11 @@ export class OffersController {
   @Roles('rh')
   @MessagePattern({ cmd: 'create-offre' })
   async create(createOfferDto: CreateOfferDto) {
-    // return createOfferDto;
-
-    
     return await this.offersService.create(createOfferDto);
   }
 
-  @Get()
+  @Roles('rh')
+  @MessagePattern({ cmd: 'find-all-offre' })
   findAll() {
     return this.offersService.findAll();
   }

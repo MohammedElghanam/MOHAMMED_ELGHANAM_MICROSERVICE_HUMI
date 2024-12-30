@@ -24,16 +24,13 @@ export class OffersService {
       image,
     };
 
-    // console.log(offreData);
-    // return offreData;
-    
     const newOffer = new this.offreModel(offreData);
   
     return await newOffer.save();
   }
 
   findAll() {
-    return `This action returns all offers`;
+    return this.offreModel.find();
   }
 
   findOne(id: number) {

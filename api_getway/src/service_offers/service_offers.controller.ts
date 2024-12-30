@@ -13,13 +13,13 @@ export class ServiceOffersController {
   @UseInterceptors(FileInterceptor('file'))
   async create(@Body() createServiceOfferDto: CreateServiceOfferDto, @UploadedFile() file: Express.Multer.File, @Req() req: Request) {
     const token = req['token'];
-    // console.log('dkhal'); 
     return await this.serviceOffersService.create(createServiceOfferDto, file, token);
   }
 
   @Get()
-  findAll() {
-    return this.serviceOffersService.findAll();
+  findAll(@Req() req: Request) {
+    const token = req['token'];
+    return this.serviceOffersService.findAll(token);
   }
 
   @Get(':id')

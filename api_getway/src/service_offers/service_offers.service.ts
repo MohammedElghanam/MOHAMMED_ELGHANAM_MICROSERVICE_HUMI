@@ -26,8 +26,9 @@ export class ServiceOffersService {
     return result
   }
 
-  findAll() {
-    return `This action returns all serviceOffers`;
+  async findAll(token: string) {
+    const result = await this.serviceCClient.send({cmd: 'find-all-offre'}, {token}).toPromise();
+    return result
   }
 
   findOne(id: number) {
