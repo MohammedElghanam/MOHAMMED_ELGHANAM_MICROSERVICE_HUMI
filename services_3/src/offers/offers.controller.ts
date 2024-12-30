@@ -34,8 +34,9 @@ export class OffersController {
     return this.offersService.update(+id, updateOfferDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.offersService.remove(+id);
+  @Roles('rh')
+  @MessagePattern({ cmd: 'remove-offre' })
+  remove(paylod: any) {
+    return this.offersService.remove(paylod.id);
   }
 }

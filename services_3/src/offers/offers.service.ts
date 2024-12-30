@@ -42,6 +42,6 @@ export class OffersService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} offer`;
+    return this.offreModel.findByIdAndDelete(id);
   }
 }

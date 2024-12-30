@@ -44,8 +44,13 @@ export class ServiceOffersService {
     return `This action updates a #${id} serviceOffer`;
   }
 
-  remove(id: string, token: string) {
-    return `This action removes a #${id} serviceOffer`;
+  async remove(id: string, token: string) {
+    const paylod = {
+      id,
+      token,
+    };
+    const result = await this.serviceCClient.send({cmd: 'remove-offre'}, paylod).toPromise();
+    return result
   }
 }
 
