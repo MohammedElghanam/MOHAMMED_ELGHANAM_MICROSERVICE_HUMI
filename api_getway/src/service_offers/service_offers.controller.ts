@@ -11,12 +11,13 @@ export class ServiceOffersController {
 
   @Post()
   @UseInterceptors(FileInterceptor('image'))
-  create(@Body() body: CreateServiceOfferDto, @UploadedFile() file: Express.Multer.File, @Req() req: Request) {
+  create(@Body() createServiceOfferDto: CreateServiceOfferDto, @UploadedFile() file: Express.Multer.File, @Req() req: Request) {
     const token = req['token'];
-    console.log('dkhal'); 
-    log(file)
-    // return {body, file};
-    return this.serviceOffersService.create(body, file, token);
+    // console.log('dkhal'); 
+    // log(req.body)
+    // log(createServiceOfferDto)
+    // return {createServiceOfferDto, file};
+    return this.serviceOffersService.create(createServiceOfferDto, file, token);
   }
 
   @Get()
