@@ -12,10 +12,9 @@ export class OffersController {
   constructor(private readonly offersService: OffersService) {}
 
   @Roles('rh')
-  // @MessagePattern({ cmd: 'create-offre' })
-  @Post()
+  @MessagePattern({ cmd: 'create-offre' })
   create(createOfferDto: CreateOfferDto) {
-    return createOfferDto;
+    // return createOfferDto;
 
     
     return this.offersService.create(createOfferDto);

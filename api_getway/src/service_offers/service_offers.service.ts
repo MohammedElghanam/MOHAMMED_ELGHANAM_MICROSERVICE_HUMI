@@ -11,15 +11,17 @@ export class ServiceOffersService {
     @Inject('SERVICE_3') private readonly serviceCClient: ClientProxy,
   ) {}
 
-  async create(createServiceOfferDto: CreateServiceOfferDto, token: string) {
+  async create(createServiceOfferDto: CreateServiceOfferDto, file: Express.Multer.File, token: string) {
     
     const paylod = {
       ...createServiceOfferDto,
       token,
+      file,
     };
 
     // log(createServiceOfferDto);
     // return createServiceOfferDto;
+
     const result = await this.serviceCClient.send({cmd: 'create-offre'}, paylod).toPromise();
     return result
   }

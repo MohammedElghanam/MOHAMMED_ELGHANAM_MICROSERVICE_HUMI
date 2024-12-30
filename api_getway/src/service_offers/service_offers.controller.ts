@@ -1,19 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ServiceOffersService } from './service_offers.service';
 import { CreateServiceOfferDto } from './dto/create-service_offer.dto';
 import { UpdateServiceOfferDto } from './dto/update-service_offer.dto';
-import { Certificate } from 'crypto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { log } from 'console';
 
 @Controller('service-offers')
 export class ServiceOffersController {
   constructor(private readonly serviceOffersService: ServiceOffersService) {}
 
   @Post()
-  create(@Body() createServiceOfferDto: CreateServiceOfferDto, @Req() req: Request) {
+  @UseInterceptors(FileInterceptor('image'))
+  create(@Body() body: CreateServiceOfferDto, @UploadedFile() file: Express.Multer.File, @Req() req: Request) {
     const token = req['token'];
-    console.log(createServiceOfferDto); 
-    return createServiceOfferDto;
-    // return this.serviceOffersService.create(createServiceOfferDto, token);
+    console.log('dkhal'); 
+    log(file)
+    // return {body, file};
+    return this.serviceOffersService.create(body, file, token);
   }
 
   @Get()

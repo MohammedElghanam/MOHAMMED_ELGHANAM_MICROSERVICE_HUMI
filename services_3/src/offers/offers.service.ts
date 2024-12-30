@@ -5,6 +5,7 @@ import { UpdateOfferDto } from './dto/update-offer.dto';
 @Injectable()
 export class OffersService {
   create(createOfferDto: CreateOfferDto) {
+    return createOfferDto;
     return 'This action adds a new offer';
   }
 
