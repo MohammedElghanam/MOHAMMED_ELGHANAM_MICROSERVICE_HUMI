@@ -52,10 +52,24 @@ export class Offer extends Document {
   companyWebsite: string;
 
   @Prop()
-  companyFile: string;
+  companyImage: string;
 
   @Prop()
   profileMatched: string;
+
+  @Prop()
+  requirements: string[];
+
+  @Prop()
+  technologies: string[];
+
+  @Prop()
+  jobId: string;
+
+  @Prop()
+  workEnvironment: string;
+
+
 }
 
 export const OfferSchema = SchemaFactory.createForClass(Offer);

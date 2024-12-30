@@ -2,21 +2,34 @@ import { Injectable } from '@nestjs/common';
 import { CreateOfferDto } from './dto/create-offer.dto';
 import { UpdateOfferDto } from './dto/update-offer.dto';
 import { MinioService } from './minio.service';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Offer } from './entities/offer.entity';
 
 @Injectable()
 export class OffersService {
 
-  constructor(private readonly minioService: MinioService) {}
+  constructor(
+    @InjectModel(Offer.name) private offreModel: Model<Offer>,
+    private readonly minioService: MinioService
+  ) {}
 
   async create(createOfferDto: CreateOfferDto) {
-    
-    console.log(createOfferDto);
-    
-    console.log(createOfferDto.file);
-    
+
     const bucketName = 'offers';
     const image = await this.minioService.uploadFile( bucketName, createOfferDto.file);
-    return image;
+    
+    const offreData = {
+      ...createOfferDto,
+      image,
+    };
+
+    // console.log(offreData);
+    // return offreData;
+    
+    const newOffer = new this.offreModel(offreData);
+  
+    return await newOffer.save();
   }
 
   findAll() {

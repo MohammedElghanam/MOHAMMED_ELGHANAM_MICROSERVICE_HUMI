@@ -10,14 +10,11 @@ export class ServiceOffersController {
   constructor(private readonly serviceOffersService: ServiceOffersService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('image'))
-  create(@Body() createServiceOfferDto: CreateServiceOfferDto, @UploadedFile() file: Express.Multer.File, @Req() req: Request) {
+  @UseInterceptors(FileInterceptor('file'))
+  async create(@Body() createServiceOfferDto: CreateServiceOfferDto, @UploadedFile() file: Express.Multer.File, @Req() req: Request) {
     const token = req['token'];
     // console.log('dkhal'); 
-    // log(req.body)
-    // log(createServiceOfferDto)
-    // return {createServiceOfferDto, file};
-    return this.serviceOffersService.create(createServiceOfferDto, file, token);
+    return await this.serviceOffersService.create(createServiceOfferDto, file, token);
   }
 
   @Get()
