@@ -52,7 +52,7 @@ export class Offer extends Document {
   companyWebsite: string;
 
   @Prop()
-  companyImage: string;
+  companyFile: string;
 
   @Prop()
   profileMatched: string;

@@ -3,6 +3,7 @@ import { OffersService } from './offers.service';
 import { OffersController } from './offers.controller';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { KeycloakService } from 'src/common/keycloak/keycloak.service';
+import { MinioService } from './minio.service';
 
 @Module({
   controllers: [OffersController],
@@ -12,6 +13,8 @@ import { KeycloakService } from 'src/common/keycloak/keycloak.service';
       useClass: RolesGuard,
     },
     KeycloakService,
-    OffersService],
+    OffersService,
+    MinioService,
+  ],
 })
 export class OffersModule {}

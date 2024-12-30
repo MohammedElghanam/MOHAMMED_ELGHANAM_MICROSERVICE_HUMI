@@ -1,14 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOfferDto } from './dto/create-offer.dto';
 import { UpdateOfferDto } from './dto/update-offer.dto';
+import { MinioService } from './minio.service';
 
 @Injectable()
 export class OffersService {
-  create(createOfferDto: CreateOfferDto) {
+
+  constructor(private readonly minioService: MinioService) {}
+
+  async create(createOfferDto: CreateOfferDto) {
+    
     console.log(createOfferDto);
     
-    return createOfferDto;
-    return 'This action adds a new offer';
+    console.log(createOfferDto.file);
+    
+    const bucketName = 'offers';
+    const image = await this.minioService.uploadFile( bucketName, createOfferDto.file);
+    return image;
   }
 
   findAll() {
