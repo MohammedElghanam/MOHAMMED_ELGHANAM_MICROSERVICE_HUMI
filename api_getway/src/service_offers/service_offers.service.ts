@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreateServiceOfferDto } from './dto/create-service_offer.dto';
 import { UpdateServiceOfferDto } from './dto/update-service_offer.dto';
 import { ClientProxy } from '@nestjs/microservices';
+import { log } from 'console';
 
 @Injectable()
 export class ServiceOffersService {
@@ -11,17 +12,14 @@ export class ServiceOffersService {
   ) {}
 
   async create(createServiceOfferDto: CreateServiceOfferDto, token: string) {
-    // return {
-    //   message: 'Service offer created successfully',
-    //   data: createServiceOfferDto,
-    //   token: token
-    // };
-
+    
     const paylod = {
       ...createServiceOfferDto,
       token,
     };
 
+    // log(createServiceOfferDto);
+    // return createServiceOfferDto;
     const result = await this.serviceCClient.send({cmd: 'create-offre'}, paylod).toPromise();
     return result
   }

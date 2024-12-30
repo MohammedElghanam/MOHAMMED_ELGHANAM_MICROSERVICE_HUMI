@@ -16,7 +16,7 @@ export class RolesGuard implements CanActivate {
     const token = request.token;
     const requiredRoles = this.reflector.get<string[]>('roles', context.getHandler());
 
-    // console.log(token);
+    console.log(token);
 
     if (!token) {
       throw new UnauthorizedException('Token not provided');

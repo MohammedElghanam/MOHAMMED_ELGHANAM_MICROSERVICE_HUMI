@@ -26,14 +26,14 @@ export class KeycloakService {
 
   hasRole(decodedToken: any, requiredRole: any): boolean {
     const roles = decodedToken.realm_access?.roles || [];
-    const test = roles.toString().includes(requiredRole.toString());
+    const test = roles.toString() === requiredRole.toString();
 
 
-    // console.log('roles:' + roles + typeof(roles));
-    // console.log('requiredRole:' + requiredRole + typeof(requiredRole));
+    // console.log('roles: ' + roles.toString() + typeof( roles.toString()));
+    // console.log('requiredRole: ' + requiredRole.toString() + typeof( requiredRole.toString()));
     // console.log(test);
     
-    
+     
     return test ;
   }
 }
