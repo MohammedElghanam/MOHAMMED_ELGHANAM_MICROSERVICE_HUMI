@@ -23,8 +23,9 @@ export class ServiceOffersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.serviceOffersService.findOne(+id);
+  findOne(@Param('id') id: string, @Req() req: Request) {
+    const token = req['token'];
+    return this.serviceOffersService.findOne(id, token);
   }
 
   @Patch(':id')
@@ -33,7 +34,8 @@ export class ServiceOffersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.serviceOffersService.remove(+id);
+  remove(@Param('id') id: string, @Req() req: Request) {
+    const token = req['token'];
+    return this.serviceOffersService.remove(id, token);
   }
 }

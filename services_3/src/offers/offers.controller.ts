@@ -18,14 +18,15 @@ export class OffersController {
   }
 
   @Roles('rh')
-  @MessagePattern({ cmd: 'find-all-offre' })
+  @MessagePattern({ cmd: 'find-all-offres' })
   findAll() {
     return this.offersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.offersService.findOne(+id);
+  @Roles('rh')
+  @MessagePattern({ cmd: 'find-one-offre' })
+  findOne(paylod: any) {
+    return this.offersService.findOne(paylod.id);
   }
 
   @Patch(':id')

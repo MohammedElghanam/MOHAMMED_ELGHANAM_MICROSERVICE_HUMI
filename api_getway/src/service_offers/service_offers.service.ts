@@ -27,19 +27,24 @@ export class ServiceOffersService {
   }
 
   async findAll(token: string) {
-    const result = await this.serviceCClient.send({cmd: 'find-all-offre'}, {token}).toPromise();
+    const result = await this.serviceCClient.send({cmd: 'find-all-offres'}, {token}).toPromise();
     return result
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} serviceOffer`;
+  async findOne(id: string, token: string) {
+    const paylod = {
+      id,
+      token,
+    };
+    const result = await this.serviceCClient.send({cmd: 'find-one-offre'}, paylod).toPromise();
+    return result
   }
 
   update(id: number, updateServiceOfferDto: UpdateServiceOfferDto) {
     return `This action updates a #${id} serviceOffer`;
   }
 
-  remove(id: number) {
+  remove(id: string, token: string) {
     return `This action removes a #${id} serviceOffer`;
   }
 }

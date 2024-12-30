@@ -33,8 +33,8 @@ export class OffersService {
     return this.offreModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} offer`;
+  findOne(id: string) {
+    return this.offreModel.findById(id);
   }
 
   update(id: number, updateOfferDto: UpdateOfferDto) {
